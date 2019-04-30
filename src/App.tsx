@@ -8,6 +8,9 @@ library.add(faFolder, faFileAlt)
 
 type Omit<T,K> = Pick<T, Exclude<keyof T, K>>;
 
+// we omit the 'onEnter' field from disk objects because we don't want to 
+// repeat the onEnter definition for each object
+// so we use Omit<type, fieldName> to get the whole type excluding a specific fieldName
 type DiskObject = IFileProps | Omit<IFolderProps, 'onEnter'>;
 
 interface IAppState {
@@ -68,7 +71,7 @@ export class App extends React.Component<any, IAppState> {
                         } else {
                             const folder = object as Omit<IFolderProps, 'onEnter'>;
                             // {...folder} is equivalent to writing name={folder.name} path={folder.path} and so on....
-                            return <Folder key={folder.name} {...folder} />;
+                            return <Folder key={folder.name} {...folder} onEnter={console.log} />;
                         }
                     })}
                 </div>
