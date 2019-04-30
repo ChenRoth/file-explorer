@@ -44,7 +44,13 @@ export class App extends React.Component<any, IAppState> {
                 },
                 'secrets': {
                     name: 'secrets',
-                    children: {},
+                    children: {
+                        'recipes': {
+                            name: 'recipes',
+                            extension: 'xlsx',
+                            path: 'recipes'
+                        }
+                    },
                     path: 'secrets',
                 },
                 'zohars-passwords': {
@@ -58,8 +64,12 @@ export class App extends React.Component<any, IAppState> {
 
     render() {
         const { disk, currentPath } = this.state;
+        let currentChildren = disk.children;
+        currentPath.forEach(folderName => {
+            currentChildren = (currentChildren[folderName] as IFolderProps).children;
+        });
 
-        const objects = Object.values(disk.children);
+        const objects = Object.values(currentChildren);
         return (
             <div className="App">
                 <div>current path: {currentPath.join(' / ')}</div>
