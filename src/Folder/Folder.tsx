@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { IFileProps } from '../File/File';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { DiskObject } from '../App';
 
 export interface IFolderProps {
     name: string;
-    path: string;
-    folders: IFolderProps[];
-    files: IFileProps[];
+    children: Record<string, DiskObject>
     onEnter: (name: string) => void;
 }
 

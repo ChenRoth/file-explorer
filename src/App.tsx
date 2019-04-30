@@ -11,13 +11,13 @@ type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 // we omit the 'onEnter' field from disk objects because we don't want to 
 // repeat the onEnter definition for each object
 // so we use Omit<type, fieldName> to get the whole type excluding a specific fieldName
-type DiskObject = IFileProps | Omit<IFolderProps, 'onEnter'>;
+export type DiskObject = IFileProps | Omit<IFolderProps, 'onEnter'>;
 
 interface IAppState {
     currentPath: string[];
     // Record<keyType, valueType> represents the type of objects where
     // all the keys have to be of type keyType, and all values have to be of type ValueType
-    disk: Record<string, DiskObject>
+    disk: Omit<IFolderProps, 'onEnter'>;
 }
 
 
@@ -25,39 +25,41 @@ export class App extends React.Component<any, IAppState> {
     state: IAppState = {
         currentPath: [],
         disk: {
-            'banana': {
-                name: 'banana',
-                extension: 'jpg',
-                path: 'banana'
-            },
-            'finance-report': {
-                name: 'finance-report',
-                extension: 'xlsx',
-                path: 'finance-report'
-            },
-            'best-song': {
-                name: 'best-song',
-                extension: 'mp3',
-                path: 'best-song'
-            },
-            'secrets': {
-                name: 'secrets',
-                files: [],
-                folders: [],
-                path: 'secrets',
-            },
-            'zohars-passwords': {
-                name: 'zohars-passwords',
-                files: [],
-                folders: [],
-                path: 'zohars-passwords'
-            },
+            name: '/',
+            children: {
+                'banana': {
+                    name: 'banana',
+                    extension: 'jpg',
+                    path: 'banana'
+                },
+                'finance-report': {
+                    name: 'finance-report',
+                    extension: 'xlsx',
+                    path: 'finance-report'
+                },
+                'best-song': {
+                    name: 'best-song',
+                    extension: 'mp3',
+                    path: 'best-song'
+                },
+                'secrets': {
+                    name: 'secrets',
+                    children: {},
+                    path: 'secrets',
+                },
+                'zohars-passwords': {
+                    name: 'zohars-passwords',
+                    children: {},
+                    path: 'zohars-passwords'
+                },
+            }
         }
     }
 
     render() {
         const { disk, currentPath } = this.state;
-        const objects: DiskObject[] = Object.values(disk);
+
+        const objects = Object.values(disk.children);
         return (
             <div className="App">
                 <div>current path: {currentPath.join(' / ')}</div>
