@@ -13,7 +13,7 @@ export class File extends React.Component<IFileProps> {
         return (
             <div className="file">
                 <FontAwesomeIcon icon="file-alt" size="2x"/>
-                {name}.{extension}
+                <div>{name}.{extension}</div>
             </div>
         );
     }

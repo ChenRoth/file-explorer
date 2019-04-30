@@ -15,7 +15,7 @@ export class Folder extends React.Component<IFolderProps> {
         return (
             <div className="folder">
                 <FontAwesomeIcon icon="folder" color="orange" size="2x"/>
-                {name}
+                <div>{name}</div>
             </div>
         );
     }

@@ -8,4 +8,5 @@
 
 .folder, .file {
     margin-bottom: 32px;
+    flex: 1;
 }
