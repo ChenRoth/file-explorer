@@ -6,7 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 library.add(faFolder, faFileAlt)
 
-type Omit<T,K> = Pick<T, Exclude<keyof T, K>>;
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 // we omit the 'onEnter' field from disk objects because we don't want to 
 // repeat the onEnter definition for each object
@@ -56,10 +56,11 @@ export class App extends React.Component<any, IAppState> {
     }
 
     render() {
-        const { disk } = this.state;
+        const { disk, currentPath } = this.state;
         const objects: DiskObject[] = Object.values(disk);
         return (
             <div className="App">
+                <div>current path: {currentPath.join(' / ')}</div>
                 <div className="view">
                     {objects.map(object => {
                         // decide if this object is a file by checking if it has an extension
@@ -71,11 +72,17 @@ export class App extends React.Component<any, IAppState> {
                         } else {
                             const folder = object as Omit<IFolderProps, 'onEnter'>;
                             // {...folder} is equivalent to writing name={folder.name} path={folder.path} and so on....
-                            return <Folder key={folder.name} {...folder} onEnter={console.log} />;
+                            return <Folder key={folder.name} {...folder} onEnter={this.onEnter} />;
                         }
                     })}
                 </div>
             </div>
         );
+    }
+
+    onEnter = (name: string) => {
+        this.setState({
+            currentPath: this.state.currentPath.concat(name),
+        });
     }
 }
