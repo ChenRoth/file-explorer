@@ -41,7 +41,7 @@ export class App extends React.Component<any, IAppState> {
                     if ((object as any).extension) {
                         // this object has an extension, so we use a new variable of type IFileProps
                         const file = object as IFileProps;
-                        return <File name={file.name} extension={file.extension} path={file.path}/>;
+                        return <File {...file}/>;
                     } else {
                         const folder = object as IFolderProps;
                         // {...folder} is equivalent to writing name={folder.name} path={folder.path} and so on....
