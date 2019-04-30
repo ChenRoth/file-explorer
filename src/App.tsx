@@ -1,16 +1,9 @@
 import React from 'react';
 import './App.css';
 import { IFileProps, File } from './File/File';
+import { IFolderProps, Folder } from './Folder/Folder';
 
-
-interface IFolder {
-    name: string;
-    path: string;
-    folders: IFolder[];
-    files: IFileProps[];
-}
-
-type DiskObject = IFileProps | IFolder;
+type DiskObject = IFileProps | IFolderProps;
 
 interface IAppState {
     currentPath: string;
@@ -50,8 +43,9 @@ export class App extends React.Component<any, IAppState> {
                         const file = object as IFileProps;
                         return <File name={file.name} extension={file.extension} path={file.path}/>;
                     } else {
-                        const folder = object as IFolder;
-                        return <div>{folder.name}</div>;
+                        const folder = object as IFolderProps;
+                        // {...folder} is equivalent to writing name={folder.name} path={folder.path} and so on....
+                        return <Folder {...folder} />;
                     }
                 })}
             </div>
