@@ -29,15 +29,31 @@ export class App extends React.Component<any, IAppState> {
                 extension: 'jpg',
                 path: 'banana'
             },
+            'secrets': {
+                name: 'secrets',
+                files: [],
+                folders: [],
+                path: 'secrets'
+            },
         }
     }
 
     render() {
+        const {disk} = this.state;
+        const objects: DiskObject[] = Object.values(disk);
         return (
             <div className="App">
-                <File name="banana" extension="jpg" path="C:\banana.jpg" />
-                <File name="README" extension="txt" path="C:\README.txt" />
-                <File name="secret-code" extension="zip" path="C:\secret-code.zip" />
+                {objects.map(object => {
+                    // decide if this object is a file by checking if it has an extension
+                    if ((object as any).extension) {
+                        // this object has an extension, so we use a new variable of type IFileProps
+                        const file = object as IFileProps;
+                        return <File name={file.name} extension={file.extension} path={file.path}/>;
+                    } else {
+                        const folder = object as IFolder;
+                        return <div>{folder.name}</div>;
+                    }
+                })}
             </div>
         );
     }
