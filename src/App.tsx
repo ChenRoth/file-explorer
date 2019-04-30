@@ -6,7 +6,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 library.add(faFolder, faFileAlt)
 
-type DiskObject = IFileProps | IFolderProps;
+type Omit<T,K> = Pick<T, Exclude<keyof T, K>>;
+
+type DiskObject = IFileProps | Omit<IFolderProps, 'onEnter'>;
 
 interface IAppState {
     currentPath: string[];
@@ -39,7 +41,7 @@ export class App extends React.Component<any, IAppState> {
                 name: 'secrets',
                 files: [],
                 folders: [],
-                path: 'secrets'
+                path: 'secrets',
             },
             'zohars-passwords': {
                 name: 'zohars-passwords',
@@ -64,7 +66,7 @@ export class App extends React.Component<any, IAppState> {
                             const file = object as IFileProps;
                             return <File key={file.name} {...file} />;
                         } else {
-                            const folder = object as IFolderProps;
+                            const folder = object as Omit<IFolderProps, 'onEnter'>;
                             // {...folder} is equivalent to writing name={folder.name} path={folder.path} and so on....
                             return <Folder key={folder.name} {...folder} />;
                         }
