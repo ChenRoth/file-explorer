@@ -9,7 +9,7 @@ library.add(faFolder, faFileAlt)
 type DiskObject = IFileProps | IFolderProps;
 
 interface IAppState {
-    currentPath: string;
+    currentPath: string[];
     // Record<keyType, valueType> represents the type of objects where
     // all the keys have to be of type keyType, and all values have to be of type ValueType
     disk: Record<string, DiskObject>
@@ -18,7 +18,7 @@ interface IAppState {
 
 export class App extends React.Component<any, IAppState> {
     state: IAppState = {
-        currentPath: '',
+        currentPath: [],
         disk: {
             'banana': {
                 name: 'banana',

@@ -7,16 +7,22 @@ export interface IFolderProps {
     path: string;
     folders: IFolderProps[];
     files: IFileProps[];
+    onEnter: (name: string) => void;
 }
 
 export class Folder extends React.Component<IFolderProps> {
     render() {
         const { name } = this.props;
         return (
-            <div className="folder">
-                <FontAwesomeIcon icon="folder" color="orange" size="2x"/>
+            <button className="folder" onDoubleClick={this.handleEnterEvent}>
+                <FontAwesomeIcon icon="folder" color="orange" size="2x" />
                 <div>{name}</div>
-            </div>
+            </button>
         );
+    }
+
+    handleEnterEvent = () => {
+        const { onEnter, name } = this.props;
+        onEnter(name);
     }
 }
