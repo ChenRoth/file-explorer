@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export interface IFileProps {
     name: string;
@@ -8,7 +9,12 @@ export interface IFileProps {
 
 export class File extends React.Component<IFileProps> {
     render() {
-        const {name, extension} = this.props;
-        return <div>{name}.{extension}</div>
+        const { name, extension } = this.props;
+        return (
+            <div className="file">
+                <FontAwesomeIcon icon="file-alt" size="2x"/>
+                {name}.{extension}
+            </div>
+        );
     }
 }

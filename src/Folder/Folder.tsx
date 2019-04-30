@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IFileProps } from '../File/File';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export interface IFolderProps {
     name: string;
@@ -10,7 +11,12 @@ export interface IFolderProps {
 
 export class Folder extends React.Component<IFolderProps> {
     render() {
-        const {name} = this.props;
-        return <div>{name}</div>
+        const { name } = this.props;
+        return (
+            <div className="folder">
+                <FontAwesomeIcon icon="folder" color="orange" size="2x"/>
+                {name}
+            </div>
+        );
     }
 }
