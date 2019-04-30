@@ -74,6 +74,7 @@ export class App extends React.Component<any, IAppState> {
             <div className="App">
                 <div>current path: {currentPath.join(' / ')}</div>
                 <div className="view">
+                    <Folder name=".." onEnter={this.onExit} children={{}} />
                     {objects.map(object => {
                         // decide if this object is a file by checking if it has an extension
                         if ((object as any).extension) {
@@ -95,6 +96,13 @@ export class App extends React.Component<any, IAppState> {
     onEnter = (name: string) => {
         this.setState({
             currentPath: this.state.currentPath.concat(name),
+        });
+    }
+
+    onExit = () => {
+        const {currentPath} = this.state;
+        this.setState({
+            currentPath: currentPath.slice(0, currentPath.length - 1),
         });
     }
 }
