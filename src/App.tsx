@@ -10,7 +10,25 @@ interface IFolder {
     files: IFileProps[];
 }
 
-export class App extends React.Component {
+interface IAppState {
+    currentPath: string;
+    // Record<keyType, valueType> represents the type of objects where
+    // all the keys have to be of type keyType, and all values have to be of type ValueType
+    disk: Record<string, IFolder | IFileProps>
+}
+
+export class App extends React.Component<any, IAppState> {
+    state: IAppState = {
+        currentPath: '',
+        disk: {
+            'banana': {
+                name: 'banana',
+                extension: 'jpg',
+                path: 'banana'
+            },
+        }
+    }
+
     render() {
         return (
             <div className="App">
