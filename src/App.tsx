@@ -74,7 +74,7 @@ export class App extends React.Component<any, IAppState> {
             <div className="App">
                 <div>current path: {currentPath.join(' / ')}</div>
                 <div className="view">
-                    <Folder name=".." onEnter={this.onExit} children={{}} />
+                    {currentPath.length ? <Folder name=".." onEnter={this.onExit} children={{}} /> : null}
                     {objects.map(object => {
                         // decide if this object is a file by checking if it has an extension
                         if ((object as any).extension) {
